@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Настя & Илья | Наша свадьба</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Мобильное меню -->
+    <nav class="mobile-nav">
+      <div class="nav-container">
+        <button class="menu-toggle" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-overlay"></div>
+        <div class="nav-menu">
+          <button class="close-menu" aria-label="Закрыть меню">×</button>
+          <a href="#home" class="nav-link">Главная</a>
+          <a href="#story" class="nav-link">Наша история</a>
+          <a href="#details" class="nav-link">Детали</a>
+          <a href="#program" class="nav-link">Программа</a>
+          <a href="#dresscode" class="nav-link">Дресс-код</a>
+          <a href="#rsvp" class="nav-link">Подтверждение</a>
+          <a href="#gifts" class="nav-link">Подарки</a>
+          <a href="#contacts" class="nav-link">Контакты</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main>
+      <!-- Экран 1: Главный -->
+      <section id="home" class="screen hero-screen">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+          <div class="names-container">
+            <h1 class="name name-left">Настя</h1>
+            <div class="ampersand"><span>&</span></div>
+            <h1 class="name name-right">Илья</h1>
+          </div>
+
+          <div class="date-container">
+            <div class="date-badge">
+              <span class="date-day">4</span>
+              <div class="date-right">
+                <span class="date-month">Июля</span>
+                <span class="date-year">2026</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="wedding-text">Приглашаем вас на нашу свадьбу</p>
+
+          <div class="scroll-hint">
+            <span class="hint-text">Листайте вниз</span>
+            <div class="arrow-down">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 2: Наша история -->
+      <section id="story" class="screen story-screen">
+        <div class="container">
+          <h2 class="section-title">Наша история</h2>
+          <div class="story-content">
+            <div class="story-image">
+              <div class="image-frame">
+                <div class="story-img" id="story-image-1"></div>
+              </div>
+            </div>
+            <div class="story-text">
+              <p>
+                Я заметил ее ссутуленный силует рядом с мусорными баками дома у
+                pdfила
+              </p>
+              <p>
+                С тех пор мы прошли вместе тысячи километров, пережили три
+                переезда, завели кота Барсика и поняли, что хотим идти по жизни
+                только вместе.
+              </p>
+              <p>
+                Теперь мы хотим разделить с вами самый важный день нашей жизни!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 3: Детали -->
+      <section id="details" class="screen details-screen">
+        <div class="container">
+          <h2 class="section-title">Детали свадьбы</h2>
+          <div class="details-grid">
+            <div class="detail-card">
+              <div class="detail-icon">
+                <i class="fas fa-church"></i>
+              </div>
+              <h3>Церемония</h3>
+              <p class="detail-time">15:00</p>
+              <p class="detail-place">ЗАГС Центральный</p>
+              <p class="detail-address">ул. Тверская, д. 15</p>
+              <button class="map-btn" data-location="zag">
+                Посмотреть на карте
+              </button>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <i class="fas fa-glass-cheers"></i>
+              </div>
+              <h3>Банкет</h3>
+              <p class="detail-time">18:00</p>
+              <p class="detail-place">Ресторан "Времена года"</p>
+              <p class="detail-address">Парковая аллея, д. 7</p>
+              <button class="map-btn" data-location="rest">
+                Посмотреть на карте
+              </button>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <i class="fas fa-bus"></i>
+              </div>
+              <h3>Трансфер</h3>
+              <p class="detail-time">17:30</p>
+              <p class="detail-place">От ЗАГСа к ресторану</p>
+              <p class="detail-note">Автобус будет ждать у выхода</p>
+              <button class="transport-btn">Нужен трансфер?</button>
+            </div>
+          </div>
+
+          <div class="countdown-container">
+            <h3>До свадьбы осталось:</h3>
+            <div class="countdown">
+              <div class="countdown-item">
+                <span id="days" class="countdown-number">00</span>
+                <span class="countdown-label">дней</span>
+              </div>
+              <div class="countdown-item">
+                <span id="hours" class="countdown-number">00</span>
+                <span class="countdown-label">часов</span>
+              </div>
+              <div class="countdown-item">
+                <span id="minutes" class="countdown-number">00</span>
+                <span class="countdown-label">минут</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 4: Программа -->
+      <section id="program" class="screen program-screen">
+        <div class="container">
+          <h2 class="section-title">Программа дня</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-time">14:30</div>
+              <div class="timeline-content">
+                <h3>Сбор гостей</h3>
+                <p>Встреча у ЗАГСа, фотосессия</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">15:00</div>
+              <div class="timeline-content">
+                <h3>Церемония</h3>
+                <p>Торжественная регистрация брака</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">16:00</div>
+              <div class="timeline-content">
+                <h3>Прогулка</h3>
+                <p>Фотосессия в парке</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">18:00</div>
+              <div class="timeline-content">
+                <h3>Банкет</h3>
+                <p>Начало праздничного ужина</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">20:00</div>
+              <div class="timeline-content">
+                <h3>Торт</h3>
+                <p>Разрезание свадебного торта</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">22:00</div>
+              <div class="timeline-content">
+                <h3>Дискотека</h3>
+                <p>Танцы до утра!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 5: Дресс-код -->
+      <section id="dresscode" class="screen dresscode-screen">
+        <div class="container">
+          <h2 class="section-title">Дресс-код</h2>
+          <div class="dresscode-content">
+            <div class="dresscode-colors">
+              <h3>Цветовая палитра</h3>
+              <p>Будем рады, если вы поддержите нашу цветовую гамму</p>
+              <div class="color-palette">
+                <div class="color-item" style="background-color: #f5e9de">
+                  <span>Пудровый</span>
+                </div>
+                <div class="color-item" style="background-color: #d4a574">
+                  <span>Песочный</span>
+                </div>
+                <div class="color-item" style="background-color: #8b6b4c">
+                  <span>Шоколадный</span>
+                </div>
+                <div class="color-item" style="background-color: #a8c3b8">
+                  <span>Мятный</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="dresscode-rules">
+              <h3>Рекомендации</h3>
+              <div class="rules-list">
+                <div class="rule-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Для женщин: платья миди-длины пастельных тонов</span>
+                </div>
+                <div class="rule-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Для мужчин: костюмы светлых оттенков</span>
+                </div>
+                <div class="rule-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Обувь на низком каблуке (будет прогулка в парке)</span>
+                </div>
+                <div class="rule-item">
+                  <i class="fas fa-times-circle"></i>
+                  <span>Пожалуйста, избегайте черного и ярко-красного</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 6: Подтверждение -->
+      <section id="rsvp" class="screen rsvp-screen">
+        <div class="container">
+          <h2 class="section-title">Подтвердите участие</h2>
+          <p class="rsvp-subtitle">Пожалуйста, ответьте до 1 июля 2024 года</p>
+
+          <form id="rsvpForm" class="rsvp-form">
+            <!-- Имя -->
+            <div class="form-group">
+              <label for="guestName">Ваше имя и фамилия *</label>
+              <input
+                type="text"
+                id="guestName"
+                name="guestName"
+                required
+                placeholder="Иван Иванов"
+              />
+            </div>
+
+            <!-- Присутствие -->
+            <div class="form-group">
+              <label>Вы придёте? *</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="attendance" value="yes" required />
+                  <span class="radio-custom"></span>
+                  <span class="radio-text">С радостью приду!</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="attendance" value="no" required />
+                  <span class="radio-custom"></span>
+                  <span class="radio-text">К сожалению, не смогу</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Предпочтения в еде -->
+            <div class="form-group">
+              <label>Предпочтения в еде</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="food" value="Мясное" />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">Мясное меню</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="food" value="Рыбное" />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">Рыбное меню</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="food" value="Вегетарианское" />
+                  <span class="checkbox-custom"></span>
+                  <span class="checkbox-text">Вегетарианское</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Аллергии -->
+            <div class="form-group">
+              <label for="allergies">Аллергии или особенности питания</label>
+              <textarea
+                id="allergies"
+                name="allergies"
+                placeholder="Например: аллергия на орехи, непереносимость лактозы..."
+              ></textarea>
+            </div>
+
+            <!-- Пожелания -->
+            <div class="form-group">
+              <label for="wishes">Ваши пожелания нам</label>
+              <textarea
+                id="wishes"
+                name="wishes"
+                placeholder="Напишите нам что-нибудь приятное..."
+              ></textarea>
+            </div>
+
+            <!-- Контакт для связи -->
+            <div class="form-group">
+              <label for="contact">Контакт для связи (необязательно)</label>
+              <input
+                type="text"
+                id="contact"
+                name="contact"
+                placeholder="Телефон или email"
+              />
+              <p class="form-hint">
+                На случай, если потребуется уточнить детали
+              </p>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <button type="submit" class="submit-btn">Отправить ответ</button>
+          </form>
+
+          <!-- Сообщение после отправки -->
+          <div id="formMessage" class="form-message hidden"></div>
+
+          <!-- Счетчик гостей -->
+          <div class="rsvp-counter">
+            <p>
+              Уже подтвердили участие:
+              <span id="confirmedCount">24</span> гостей
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 7: Подарки -->
+      <section id="gifts" class="screen gifts-screen">
+        <div class="container">
+          <h2 class="section-title">Подарки</h2>
+          <div class="gifts-content">
+            <div class="gift-option">
+              <div class="gift-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <h3>Конверт</h3>
+              <p>Самый практичный подарок — конверт на медовый месяц</p>
+              <p class="gift-note">
+                Будет специальный почтовый ящик на банкете
+              </p>
+            </div>
+
+            <div class="gift-option">
+              <div class="gift-icon">
+                <i class="fas fa-gift"></i>
+              </div>
+              <h3>Список желаний</h3>
+              <p>Мы составили список подарков в нескольких магазинах</p>
+              <a href="#" class="gift-link">Посмотреть список</a>
+            </div>
+
+            <div class="gift-option">
+              <div class="gift-icon">
+                <i class="fas fa-glass-cheers"></i>
+              </div>
+              <h3>Бутылка вина</h3>
+              <p>Принесите бутылку хорошего вина с пожеланием для нас</p>
+              <p class="gift-note">Мы откроем её в первую годовщину</p>
+            </div>
+          </div>
+
+          <div class="wish-text">
+            <p>
+              Главный подарок для нас — ваше присутствие и разделение с нами
+              этого счастливого дня!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран 8: Контакты -->
+      <section id="contacts" class="screen contacts-screen">
+        <div class="container">
+          <h2 class="section-title">Контакты</h2>
+          <div class="contacts-grid">
+            <div class="contact-card">
+              <div class="contact-avatar" style="background-color: #d4a574">
+                А
+              </div>
+              <h3>Настя</h3>
+              <p>Невеста</p>
+              <a href="tel:+79161234567" class="contact-link">
+                <i class="fas fa-phone"></i> +7 916 123-45-67
+              </a>
+              <a href="https://wa.me/79161234567" class="contact-link">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+              </a>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-avatar" style="background-color: #8b6b4c">
+                М
+              </div>
+              <h3>Илья</h3>
+              <p>Жених</p>
+              <a href="tel:+79167654321" class="contact-link">
+                <i class="fas fa-phone"></i> +7 916 765-43-21
+              </a>
+              <a href="https://t.me/mikhail_wedding" class="contact-link">
+                <i class="fab fa-telegram"></i> Telegram
+              </a>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-avatar" style="background-color: #a8c3b8">
+                К
+              </div>
+              <h3>Кристина</h3>
+              <p>Свидетельница</p>
+              <p class="contact-role">По всем организационным вопросам</p>
+              <a href="tel:+79165554433" class="contact-link">
+                <i class="fas fa-phone"></i> +7 916 555-44-33
+              </a>
+            </div>
+          </div>
+
+          <div class="playlist-section">
+            <h3>Музыкальный плейлист</h3>
+            <p>Предложите песню для свадебной дискотеки!</p>
+            <div class="playlist-input">
+              <input
+                type="text"
+                id="songInput"
+                placeholder="Исполнитель - Название песни"
+              />
+              <button id="addSongBtn" class="song-btn">Добавить</button>
+            </div>
+            <div id="playlist" class="playlist">
+              <!-- Песни будут добавляться здесь -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Кнопка "Наверх" -->
+      <button id="toTopBtn" class="to-top-btn" aria-label="Наверх">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </main>
+
+    <!-- Карта (модальное окно) -->
+    <div id="mapModal" class="modal">
+      <div class="modal-content">
+        <button id="closeModal" class="close-modal">×</button>
+        <h3 id="modalTitle">Место проведения</h3>
+        <div id="mapContainer" class="map-container">
+          <!-- Здесь будет карта -->
+          <div class="map-placeholder">
+            <p>Здесь будет интерактивная карта</p>
+            <p>Нажмите на кнопку ниже для навигации</p>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="openYandexBtn" class="nav-btn">
+            <i class="fas fa-map-marked-alt"></i> Открыть в Яндекс.Картах
+          </button>
+          <button id="openGoogleBtn" class="nav-btn">
+            <i class="fab fa-google"></i> Открыть в Google Maps
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Уведомление о сохранении -->
+    <div id="saveNotification" class="save-notification">
+      <p>Ваш ответ сохранен!</p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
