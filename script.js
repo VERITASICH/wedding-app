@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Свадебный сайт загружается...");
 
   // URL вашего сервера (замените на реальный при деплое)
-  const API_URL = "https://wedding-server.up.railway.app/api/guests";
+  const API_URL =
+    "https://wedding-server-production-f21a.up.railway.app/api/guests";
 
   // Инициализация
   initNavigation();
