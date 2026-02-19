@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Свадебный сайт загружается...");
 
   // URL вашего сервера (замените на реальный при деплое)
-  const API_URL = "https://wedding-server-m9lh.onrender.com/api/guests";
+  const API_URL = "https://wedding-server.up.railway.app/api/guests";
 
   // Инициализация
   initNavigation();
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         } else {
           guestsListEl.innerHTML =
-            '<p class="loading">Пока никто не ответил. Будьте первыми!</p>';
+            '<p class="loading">Загружаем список гостей</p>';
         }
       } catch (error) {
         console.error("Ошибка загрузки списка гостей:", error);
