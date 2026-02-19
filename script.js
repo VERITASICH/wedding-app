@@ -1,25 +1,23 @@
 /**
- * Свадебный сайт - Google Sheets интеграция
+ * Свадебный сайт - интеграция с собственным сервером
  */
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Свадебный сайт загружается...");
 
-  // ВАШ URL Google Apps Script
-  const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbx0xykjfkACxJE31VFSEt913ojO6LgSQMgjV0a67ypNFM78Ajfhkn-6-rqUPwdDd-Qdug/exec";
+  // URL вашего сервера (замените на реальный при деплое)
+  const API_URL = "https://wedding-server-m9lh.onrender.com/api/guests";
 
   // Инициализация
   initNavigation();
   initCountdown();
-  initGoogleSheetsForm();
-  initMapModal();
+  initGuestForm();
   initPlaylist();
   initScrollAnimations();
   initScrollToTop();
   initAdminPanel();
 
-  console.log("Сайт готов! Данные будут отправляться в Google Sheets.");
+  console.log("Сайт готов! Данные будут отправляться на сервер.");
 
   // ==================== МОДУЛИ ====================
 
@@ -81,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!daysEl || !hoursEl || !minutesEl) return;
 
-    // Установите свою дату свадьбы!
     const weddingDate = new Date("2026-07-04T15:00:00");
 
     function updateCountdown() {
@@ -106,18 +103,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * 3. ФОРМА с отправкой в Google Sheets - ИСПРАВЛЕННАЯ
+   * 3. ФОРМА с отправкой на сервер и отображением списка гостей
    */
-  function initGoogleSheetsForm() {
+  function initGuestForm() {
     const form = document.getElementById("rsvpForm");
     const formMessage = document.getElementById("formMessage");
     const confirmedCountEl = document.getElementById("confirmedCount");
 
     if (!form) return;
 
-    // Загрузка счетчика из localStorage
-    let confirmedCount =
-      parseInt(localStorage.getItem("confirmedGuests")) || 24;
+    // Загрузка начального счетчика из localStorage
+    let confirmedCount = parseInt(localStorage.getItem("confirmedGuests")) || 0;
     if (confirmedCountEl) {
       confirmedCountEl.textContent = confirmedCount;
     }
@@ -135,96 +131,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 5000);
     }
 
-    // УНИВЕРСАЛЬНЫЙ МЕТОД ОТПРАВКИ (работает всегда)
-    function sendToGoogleSheetsUniversal(data) {
-      console.log("🚀 Универсальный метод отправки:", data);
-
-      return new Promise((resolve) => {
-        // Создаем скрытый iframe для отправки
-        const iframe = document.createElement("iframe");
-        iframe.name = "google-sheets-target";
-        iframe.style.cssText =
-          "position:absolute;width:0;height:0;border:0;opacity:0;";
-
-        // Создаем форму для отправки
-        const formElement = document.createElement("form");
-        formElement.method = "POST";
-        formElement.action = GOOGLE_SCRIPT_URL;
-        formElement.target = "google-sheets-target";
-        formElement.style.display = "none";
-
-        // Добавляем поля с данными
-        const fields = {
-          name: data.name || "",
-          attendance: data.attendance || "",
-          food: data.food || "",
-          allergies: data.allergies || "",
-          wishes: data.wishes || "",
-          contact: data.contact || "",
-        };
-
-        Object.entries(fields).forEach(([key, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = value;
-          formElement.appendChild(input);
-        });
-
-        // Добавляем на страницу и отправляем
-        document.body.appendChild(iframe);
-        document.body.appendChild(formElement);
-
-        // После отправки убираем элементы
-        setTimeout(() => {
-          document.body.removeChild(iframe);
-          document.body.removeChild(formElement);
-          console.log("✅ Форма отправлена через iframe");
-          resolve(true);
-        }, 100);
-
-        formElement.submit();
-      });
-    }
-
-    // Альтернативный метод через fetch (если нужен)
-    async function sendToGoogleSheetsFetch(data) {
-      try {
-        console.log("📤 Пробуем отправку через fetch:", data);
-
-        const formData = new URLSearchParams();
-        formData.append("name", data.name || "");
-        formData.append("attendance", data.attendance || "");
-        formData.append("food", data.food || "");
-        formData.append("allergies", data.allergies || "");
-        formData.append("wishes", data.wishes || "");
-        formData.append("contact", data.contact || "");
-
-        // Отправляем с no-cors режимом
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: formData.toString(),
-        });
-
-        console.log("✅ Fetch запрос отправлен (no-cors)");
-        return true;
-      } catch (error) {
-        console.error("❌ Ошибка fetch:", error);
-        return false;
-      }
-    }
-
-    // Сохранение в localStorage как резерв
+    // Сохранение в localStorage (резерв)
     function saveToLocalStorage(data) {
       try {
         const saved =
           JSON.parse(localStorage.getItem("weddingResponses")) || [];
 
-        // Проверяем дубликаты
         const existingIndex = saved.findIndex(
           (r) => r.name?.toLowerCase() === data.name?.toLowerCase(),
         );
@@ -264,18 +176,108 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Обработка отправки формы - ОСНОВНОЙ ОБРАБОТЧИК
+    // Отправка на сервер
+    async function sendToServer(data) {
+      try {
+        console.log("📤 Отправляем на сервер:", data);
+
+        const requestData = {
+          guestName: data.name,
+          attendance: data.attendance === "Придёт" ? "yes" : "no",
+          wishes: data.wishes || "",
+        };
+
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        });
+
+        const result = await response.json();
+        console.log("✅ Ответ сервера:", result);
+
+        return result.success;
+      } catch (error) {
+        console.error("❌ Ошибка отправки на сервер:", error);
+        return false;
+      }
+    }
+
+    // ===== ФУНКЦИЯ ЗАГРУЗКИ И ОТОБРАЖЕНИЯ СПИСКА ГОСТЕЙ =====
+    async function loadGuestsList() {
+      const guestsListEl = document.getElementById("guestsList");
+      if (!guestsListEl) return;
+
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        if (data.success && data.guests.length > 0) {
+          // Сортируем: сначала те, кто придут, потом по дате (новые сверху)
+          const sortedGuests = data.guests.sort((a, b) => {
+            if (a.attendance === "Придёт" && b.attendance !== "Придёт")
+              return -1;
+            if (a.attendance !== "Придёт" && b.attendance === "Придёт")
+              return 1;
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          });
+
+          let html = "";
+          sortedGuests.forEach((guest) => {
+            const avatarLetter = guest.name.charAt(0).toUpperCase();
+            const statusClass =
+              guest.attendance === "Придёт" ? "attending" : "not-attending";
+            const date = new Date(guest.createdAt).toLocaleDateString("ru-RU");
+
+            html += `
+              <div class="guest-item">
+                <div class="guest-avatar">${avatarLetter}</div>
+                <div class="guest-info">
+                  <div class="guest-name">${guest.name}</div>
+                  <div class="guest-status ${statusClass}">${guest.attendance}</div>
+                  ${
+                    guest.wishes
+                      ? `<div class="guest-wishes">💭 ${guest.wishes}</div>`
+                      : ""
+                  }
+                </div>
+                <div class="guest-date">${date}</div>
+              </div>
+            `;
+          });
+
+          guestsListEl.innerHTML = html;
+
+          // Обновляем счетчик подтвердивших
+          const attendingCount = data.guests.filter(
+            (g) => g.attendance === "Придёт",
+          ).length;
+          if (confirmedCountEl) {
+            confirmedCountEl.textContent = attendingCount;
+          }
+        } else {
+          guestsListEl.innerHTML =
+            '<p class="loading">Пока никто не ответил. Будьте первыми!</p>';
+        }
+      } catch (error) {
+        console.error("Ошибка загрузки списка гостей:", error);
+        guestsListEl.innerHTML =
+          '<p class="loading">Не удалось загрузить список гостей</p>';
+      }
+    }
+
+    // ===== ОБРАБОТЧИК ОТПРАВКИ ФОРМЫ =====
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       console.log("🎯 Начало обработки формы");
 
-      // Получаем данные формы
       const formData = new FormData(form);
       const attendance = document.querySelector(
         'input[name="attendance"]:checked',
       );
 
-      // Валидация
       const name = formData.get("guestName")?.trim();
       if (!name) {
         showMessage("Пожалуйста, введите ваше имя", "error");
@@ -287,182 +289,68 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Подготавливаем данные
       const responseData = {
         name: name,
         attendance: attendance.value === "yes" ? "Придёт" : "Не придёт",
-        food: Array.from(formData.getAll("food")).join(", "),
-        allergies: formData.get("allergies")?.trim() || "",
         wishes: formData.get("wishes")?.trim() || "",
-        contact: formData.get("contact")?.trim() || "",
       };
 
       console.log("📝 Данные для отправки:", responseData);
 
-      // Показываем загрузку
       const submitBtn = form.querySelector(".submit-btn");
       const originalText = submitBtn.textContent;
       submitBtn.textContent = "Отправляем...";
       submitBtn.disabled = true;
 
       try {
-        // 1. ВСЕГДА сохраняем в localStorage (сразу)
-        const localStorageSuccess = saveToLocalStorage(responseData);
+        // 1. Сохраняем локально
+        saveToLocalStorage(responseData);
 
-        if (localStorageSuccess) {
-          console.log("💾 Данные сохранены локально");
+        // 2. Отправляем на сервер
+        const serverSuccess = await sendToServer(responseData);
+
+        if (serverSuccess) {
+          showMessage("Спасибо! Ваш ответ сохранён на сервере.", "success");
+
+          // 3. Обновляем список гостей
+          await loadGuestsList();
+        } else {
+          showMessage(
+            "Ответ сохранён локально, но не отправлен на сервер",
+            "error",
+          );
         }
 
-        // 2. Отправляем в Google Sheets (параллельно, не ждем ответа)
-        setTimeout(async () => {
-          try {
-            // Пробуем универсальный метод (работает всегда)
-            await sendToGoogleSheetsUniversal(responseData);
-            console.log("✅ Данные отправлены в Google Sheets");
-          } catch (sheetsError) {
-            console.warn("⚠️ Ошибка отправки в Google Sheets:", sheetsError);
-            console.log("📋 Но данные сохранены локально в браузере");
-          }
-        }, 0);
-
-        // 3. Показываем сообщение об успехе пользователю
-        showMessage(
-          "Спасибо! Ваш ответ сохранён в нашем списке гостей.",
-          "success",
-        );
-
         // 4. Очищаем форму
-        setTimeout(() => {
-          form.reset();
-          console.log("🔄 Форма очищена");
-        }, 1000);
+        setTimeout(() => form.reset(), 1000);
 
-        // 5. Показываем анимацию уведомления
         const notification = document.getElementById("saveNotification");
         if (notification) {
           notification.classList.add("show");
-          setTimeout(() => {
-            notification.classList.remove("show");
-          }, 3000);
+          setTimeout(() => notification.classList.remove("show"), 3000);
         }
       } catch (error) {
         console.error("❌ Критическая ошибка:", error);
         showMessage("Произошла ошибка. Попробуйте ещё раз.", "error");
       } finally {
-        // Восстанавливаем кнопку
         setTimeout(() => {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
-          console.log("🔘 Кнопка восстановлена");
         }, 1500);
       }
     });
 
-    // Тестовая функция для отладки
-    window.testFormSend = async function (testName = "Тест из консоли") {
-      console.log("🧪 Тестируем отправку формы...");
+    // Загружаем список гостей при загрузке страницы
+    loadGuestsList();
 
-      const testData = {
-        name: testName,
-        attendance: "Придёт",
-        food: "Мясное, Рыбное",
-        allergies: "Нет аллергий",
-        wishes: "Тестовое пожелание",
-        contact: "test@example.com",
-      };
-
-      console.log("📤 Тестовые данные:", testData);
-
-      // Сохраняем локально
-      saveToLocalStorage(testData);
-
-      // Отправляем в Google Sheets
-      const success = await sendToGoogleSheetsUniversal(testData);
-
-      if (success) {
-        console.log("✅ Тестовая отправка прошла успешно");
-        console.log("🔍 Проверьте Google Таблицу через 30 секунд");
-      } else {
-        console.log("⚠️ Тестовая отправка не удалась, но есть локальная копия");
-      }
-
-      return success;
-    };
-
-    console.log("✅ Форма Google Sheets инициализирована");
-    console.log("Для теста введите в консоли: testFormSend('Ваше имя')");
+    console.log("✅ Форма инициализирована. Сервер:", API_URL);
   }
 
   /**
-   * 4. Карта
-   */
-  function initMapModal() {
-    const mapModal = document.getElementById("mapModal");
-    const closeModal = document.getElementById("closeModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const openYandexBtn = document.getElementById("openYandexBtn");
-    const openGoogleBtn = document.getElementById("openGoogleBtn");
-    const mapButtons = document.querySelectorAll(".map-btn");
-
-    if (!mapModal) return;
-
-    const locations = {
-      zag: {
-        title: "ЗАГС Центральный",
-        yandex:
-          "https://yandex.ru/maps/?text=ЗАГС+Центральный+Москва+Тверская+15",
-        google:
-          "https://www.google.com/maps/search/ЗАГС+Центральный+Москва+Тверская+15",
-      },
-      rest: {
-        title: "Ресторан 'Времена года'",
-        yandex:
-          "https://yandex.ru/maps/?text=Ресторан+Времена+года+Москва+Парковая+аллея+7",
-        google:
-          "https://www.google.com/maps/search/Ресторан+Времена+года+Москва+Парковая+аллея+7",
-      },
-    };
-
-    closeModal.addEventListener("click", () => {
-      mapModal.classList.remove("active");
-    });
-
-    mapModal.addEventListener("click", (e) => {
-      if (e.target === mapModal) {
-        mapModal.classList.remove("active");
-      }
-    });
-
-    mapButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const location = button.dataset.location;
-        const locationData = locations[location];
-
-        if (locationData) {
-          modalTitle.textContent = locationData.title;
-
-          openYandexBtn.onclick = () => {
-            window.open(locationData.yandex, "_blank", "noopener,noreferrer");
-          };
-
-          openGoogleBtn.onclick = () => {
-            window.open(locationData.google, "_blank", "noopener,noreferrer");
-          };
-
-          mapModal.classList.add("active");
-        }
-      });
-    });
-  }
-
-  /**
-   * 5. Плейлист
+   * 4. Плейлист (упрощенный)
    */
   function initPlaylist() {
     const playlistContainer = document.getElementById("playlist");
-    const songInput = document.getElementById("songInput");
-    const addSongBtn = document.getElementById("addSongBtn");
-
     if (!playlistContainer) return;
 
     let playlist = [
@@ -483,13 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <strong>${song.song}</strong>
           </div>
           <div class="song-votes">
-            <button class="vote-btn" data-id="${song.id}" data-action="down">
-              <i class="fas fa-chevron-down"></i>
-            </button>
             <span class="vote-count">${song.votes}</span>
-            <button class="vote-btn" data-id="${song.id}" data-action="up">
-              <i class="fas fa-chevron-up"></i>
-            </button>
           </div>
         `;
         playlistContainer.appendChild(songElement);
@@ -497,57 +379,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     renderPlaylist();
-
-    if (addSongBtn && songInput) {
-      addSongBtn.addEventListener("click", () => {
-        const songText = songInput.value.trim();
-        if (songText) {
-          playlist.push({
-            id: Date.now(),
-            song: songText,
-            votes: 1,
-          });
-          renderPlaylist();
-          songInput.value = "";
-
-          const notification = document.getElementById("saveNotification");
-          if (notification) {
-            notification.classList.add("show");
-            setTimeout(() => {
-              notification.classList.remove("show");
-            }, 2000);
-          }
-        }
-      });
-
-      songInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          addSongBtn.click();
-        }
-      });
-    }
-
-    playlistContainer.addEventListener("click", (e) => {
-      const voteBtn = e.target.closest(".vote-btn");
-      if (!voteBtn) return;
-
-      const songId = parseInt(voteBtn.dataset.id);
-      const action = voteBtn.dataset.action;
-
-      const song = playlist.find((s) => s.id === songId);
-      if (song) {
-        if (action === "up") {
-          song.votes++;
-        } else if (action === "down" && song.votes > 0) {
-          song.votes--;
-        }
-        renderPlaylist();
-      }
-    });
   }
 
   /**
-   * 6. Анимации при скролле
+   * 5. Анимации при скролле
    */
   function initScrollAnimations() {
     const fadeElements = document.querySelectorAll(".fade-in");
@@ -574,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * 7. Кнопка "Наверх"
+   * 6. Кнопка "Наверх"
    */
   function initScrollToTop() {
     const toTopBtn = document.getElementById("toTopBtn");
@@ -597,15 +432,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * 8. Админ-панель для просмотра ответов
+   * 7. Админ-панель для просмотра ответов
    */
   function initAdminPanel() {
-    // Эта функция доступна только из консоли
     window.showGuestList = function () {
       const responses =
         JSON.parse(localStorage.getItem("weddingResponses")) || [];
 
-      console.log("📋 СПИСОК ГОСТЕЙ:");
+      console.log("📋 СПИСОК ГОСТЕЙ (локальный):");
       console.log("Всего ответов:", responses.length);
 
       const attending = responses.filter((r) => r.attendance === "Придёт");
@@ -620,76 +454,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("\n👤 Детали по гостям:");
       attending.forEach((r, i) => {
         console.log(`\n${i + 1}. ${r.name}`);
-        if (r.food) console.log(`   🍽️  Еда: ${r.food}`);
-        if (r.allergies) console.log(`   ⚠️  Аллергии: ${r.allergies}`);
-        if (r.contact) console.log(`   📞 Контакт: ${r.contact}`);
-        if (r.timestamp) {
-          const date = new Date(r.timestamp);
-          console.log(`   📅 Ответил: ${date.toLocaleDateString("ru-RU")}`);
-        }
+        if (r.wishes) console.log(`   💭 Пожелания: ${r.wishes}`);
       });
-
-      // Кнопка экспорта
-      const btn = document.createElement("button");
-      btn.textContent = "📥 Экспорт в CSV";
-      btn.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        padding: 12px 20px;
-        background: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-family: 'Montserrat', sans-serif;
-        font-size: 16px;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-      `;
-
-      btn.onclick = function () {
-        if (responses.length === 0) {
-          alert("Нет данных для экспорта");
-          return;
-        }
-
-        // Создаем CSV
-        const headers = [
-          "Имя",
-          "Присутствие",
-          "Еда",
-          "Аллергии",
-          "Пожелания",
-          "Контакт",
-          "Дата",
-        ];
-        const rows = responses.map((r) => [
-          r.name,
-          r.attendance,
-          r.food || "",
-          r.allergies || "",
-          r.wishes || "",
-          r.contact || "",
-          r.timestamp ? new Date(r.timestamp).toLocaleString("ru-RU") : "",
-        ]);
-
-        const csvContent = [
-          headers.join(","),
-          ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
-        ].join("\n");
-
-        const blob = new Blob([csvContent], {
-          type: "text/csv;charset=utf-8;",
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `гости_свадьбы_${new Date().toISOString().split("T")[0]}.csv`;
-        a.click();
-      };
-
-      document.body.appendChild(btn);
 
       return responses;
     };

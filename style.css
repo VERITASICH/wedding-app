@@ -172,10 +172,10 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80");
+  background-image: url(images/мы4.jpg);
   background-size: cover;
   background-position: center;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .hero-content {
@@ -184,10 +184,11 @@ main {
   text-align: center;
   width: 100%;
   padding: 20px;
+  padding-top: 100px;
 }
 
 .names-container {
-  margin-bottom: 40px;
+  margin-bottom: 120px;
   position: relative;
 }
 
@@ -207,6 +208,7 @@ main {
 .name-right {
   text-align: left;
   padding-left: 20px;
+  padding-bottom: 10px;
 }
 
 .ampersand {
@@ -215,10 +217,10 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3rem;
-  color: #d4a574;
+  color: #5a4636;
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
-  background: white;
+  /* background: white; */
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -235,16 +237,16 @@ main {
 .date-badge {
   display: inline-flex;
   align-items: center;
-  background: white;
+  /* background: white; */
   padding: 15px 25px;
   border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
 }
 
 .date-day {
   font-size: 3rem;
   font-weight: 700;
-  color: #8b6b4c;
+  color: #5a4636;
   margin-right: 15px;
   font-family: "Cormorant Garamond", serif;
 }
@@ -257,17 +259,18 @@ main {
 
 .date-month {
   font-size: 1.5rem;
-  color: #333;
+  color: #5a4636;
   font-weight: 500;
 }
 
 .date-year {
   font-size: 1.2rem;
-  color: #777;
+  color: #5a4636;
 }
 
 .wedding-text {
   font-size: 1.3rem;
+  font-weight: 500;
   color: #5a4636;
   margin-bottom: 50px;
   font-style: italic;
@@ -331,74 +334,6 @@ main {
   background: #d4a574;
 }
 
-/* Экран 2: История */
-.story-screen {
-  background: #fefefe;
-  display: flex;
-  align-items: center;
-}
-
-.story-content {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.story-image {
-  position: relative;
-}
-
-.image-frame {
-  width: 250px;
-  height: 250px;
-  margin: 0 auto;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  border: 10px solid white;
-}
-
-.story-img {
-  width: 100%;
-  height: 100%;
-  background-image: url("images/Фото\ на\ свадьбу.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
-.story-text p {
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-  color: #555;
-  text-align: center;
-}
-
-.story-counter {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 30px;
-}
-
-.counter-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.counter-number {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #d4a574;
-  font-family: "Cormorant Garamond", serif;
-}
-
-.counter-label {
-  font-size: 0.9rem;
-  color: #777;
-  text-align: center;
-  margin-top: 5px;
-}
-
 /* Экран 3: Детали */
 .details-screen {
   background: #f9f5f0;
@@ -452,31 +387,42 @@ main {
   color: #333;
 }
 
-.detail-address,
-.detail-note {
+.detail-address {
   font-size: 0.95rem;
   color: #777;
   margin-bottom: 20px;
 }
 
-.map-btn,
-.transport-btn {
-  background: #8b6b4c;
-  color: white;
+/* КНОПКА-ССЫЛКА НА ЯНДЕКС КАРТЫ */
+.map-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 15px;
+  background: #d4a574;
+  color: white !important;
   border: none;
-  padding: 12px 25px;
   border-radius: 30px;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  width: 100%;
   font-size: 1rem;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.2);
 }
 
-.map-btn:hover,
-.transport-btn:hover {
-  background: #a8c3b8;
+.map-link-btn:hover {
+  background: #8b6b4c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(139, 107, 76, 0.3);
+}
+
+.map-link-btn i {
+  font-size: 1.1rem;
 }
 
 .countdown-container {
@@ -593,10 +539,10 @@ main {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  margin-bottom: -150px;
 }
 
-.dresscode-colors h3,
-.dresscode-rules h3 {
+.dresscode-colors h3 {
   font-size: 1.5rem;
   margin-bottom: 15px;
   color: #5a4636;
@@ -607,8 +553,15 @@ main {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 25px;
   margin-top: 20px;
+}
+.color-palette-2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 50px;
 }
 
 .color-item {
@@ -631,41 +584,42 @@ main {
   color: #777;
   white-space: nowrap;
 }
-
-.rules-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+/* Контейнер для изображения на всю ширину */
+.fullwidth-image {
+  width: 100vw; /* 100% ширины окна */
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw; /* растягиваем на всю ширину */
+  margin-right: -50vw;
+  transform: translateY(-110px);
+  margin-bottom: -100px;
 }
 
-.rule-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
+.fullwidth-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.rule-item i {
-  color: #d4a574;
-  font-size: 1.2rem;
-  margin-top: 3px;
-  flex-shrink: 0;
+/* Если нужно затемнение или эффекты */
+.fullwidth-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); */
 }
 
-.rule-item i.fa-times-circle {
-  color: #c99;
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+  .fullwidth-image {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
-
 /* Экран 6: Подтверждение */
 .rsvp-screen {
   background: #fefefe;
-}
-
-.rsvp-subtitle {
-  text-align: center;
-  color: #777;
-  margin-bottom: 40px;
-  font-size: 1.1rem;
 }
 
 .rsvp-form {
@@ -681,12 +635,6 @@ main {
   margin-bottom: 25px;
 }
 
-.rsvp-form textarea {
-  min-height: 100px;
-  resize: vertical;
-  font-family: "Montserrat", sans-serif;
-  line-height: 1.5;
-}
 .form-group label {
   display: block;
   margin-bottom: 10px;
@@ -710,42 +658,44 @@ main {
   outline: none;
   border-color: #d4a574;
 }
-.form-hint {
-  font-size: 0.85rem;
-  color: #777;
-  margin-top: 5px;
-  font-style: italic;
+
+.rsvp-form textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
 }
 
-.radio-group,
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.radio-group {
+  background: #f9f5f0;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
-.radio-option,
-.checkbox-option {
+.radio-option {
   display: flex;
   align-items: center;
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: white;
+  border-radius: 8px;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 10px;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
-.radio-option:hover,
-.checkbox-option:hover {
-  background: #f9f5f0;
+.radio-option:hover {
+  border-color: #d4a574;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
 }
 
-.radio-option input,
-.checkbox-option input {
+.radio-option input {
   display: none;
 }
 
-.radio-custom,
-.checkbox-custom {
+.radio-custom {
   width: 22px;
   height: 22px;
   border: 2px solid #d4a574;
@@ -753,10 +703,6 @@ main {
   margin-right: 15px;
   position: relative;
   flex-shrink: 0;
-}
-
-.checkbox-custom {
-  border-radius: 5px;
 }
 
 .radio-option input:checked + .radio-custom::after {
@@ -771,67 +717,9 @@ main {
   border-radius: 50%;
 }
 
-.checkbox-option input:checked + .checkbox-custom::after {
-  content: "✓";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #d4a574;
-  font-weight: bold;
-}
-
-.switch-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin: 15px 0;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 30px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #d4a574;
-}
-
-input:checked + .slider:before {
-  transform: translateX(30px);
+.radio-text {
+  font-size: 1.05rem;
+  color: #333;
 }
 
 .submit-btn {
@@ -864,11 +752,17 @@ input:checked + .slider:before {
 .form-message.success {
   background: #e8f5e9;
   color: #2e7d32;
+  border: 1px solid #c8e6c9;
 }
 
 .form-message.error {
   background: #ffebee;
   color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.form-message.hidden {
+  display: none !important;
 }
 
 .rsvp-counter {
@@ -881,79 +775,6 @@ input:checked + .slider:before {
 .rsvp-counter span {
   font-weight: 600;
   color: #d4a574;
-}
-
-/* Экран 7: Подарки */
-.gifts-screen {
-  background: #f9f5f0;
-}
-
-.gifts-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.gift-option {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.gift-option:hover {
-  transform: translateY(-5px);
-}
-
-.gift-icon {
-  font-size: 2.5rem;
-  color: #d4a574;
-  margin-bottom: 20px;
-}
-
-.gift-option h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #5a4636;
-}
-
-.gift-option p {
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.gift-note {
-  font-size: 0.9rem;
-  color: #777;
-  font-style: italic;
-}
-
-.gift-link {
-  display: inline-block;
-  margin-top: 15px;
-  color: #d4a574;
-  text-decoration: none;
-  font-weight: 500;
-  border-bottom: 1px solid transparent;
-  transition: border 0.3s ease;
-}
-
-.gift-link:hover {
-  border-bottom: 1px solid #d4a574;
-}
-
-.wish-text {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #5a4636;
-  font-style: italic;
-  padding: 30px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 /* Экран 8: Контакты */
@@ -977,7 +798,7 @@ input:checked + .slider:before {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-.contact-avatar {
+.contact-avatar-nastay {
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -985,7 +806,21 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  color: white;
+  background-image: url("images/настя.jpg");
+  background-size: cover;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.contact-avatar-ilya {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background-image: url("images/илья.jpg");
+  background-size: cover;
   font-size: 2rem;
   font-weight: 600;
 }
@@ -999,11 +834,6 @@ input:checked + .slider:before {
 .contact-card p {
   color: #777;
   margin-bottom: 20px;
-}
-
-.contact-role {
-  font-size: 0.9rem;
-  font-style: italic;
 }
 
 .contact-link {
@@ -1022,186 +852,114 @@ input:checked + .slider:before {
 .contact-link:hover {
   background: #f9f5f0;
 }
-
-.playlist-section {
+/* Стили для списка гостей */
+.guests-list-container {
+  margin-top: 40px;
+  padding: 20px;
   background: white;
-  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-.playlist-section h3 {
+.guests-list-container h3 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
   color: #5a4636;
-  text-align: center;
-}
-
-.playlist-section p {
-  text-align: center;
-  color: #777;
   margin-bottom: 20px;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
 }
 
-.playlist-input {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.playlist-input input {
-  flex-grow: 1;
-  padding: 15px;
-  border: 1px solid #e0d6cc;
-  border-radius: 10px;
-  font-family: "Montserrat", sans-serif;
-}
-
-.song-btn {
-  background: #a8c3b8;
-  color: white;
-  border: none;
-  padding: 0 25px;
-  border-radius: 10px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.song-btn:hover {
-  background: #8b6b4c;
-}
-
-.playlist {
-  max-height: 300px;
+.guests-list {
+  max-height: 400px;
   overflow-y: auto;
+  padding-right: 10px;
 }
 
-.playlist-item {
+.guest-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #f0f0f0;
+  transition: background 0.3s ease;
 }
 
-.playlist-item:last-child {
+.guest-item:hover {
+  background: #f9f5f0;
+}
+
+.guest-item:last-child {
   border-bottom: none;
 }
 
-.song-votes {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.vote-btn {
-  background: none;
-  border: none;
-  color: #d4a574;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-/* Модальное окно карты */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-content {
-  background: white;
-  width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
-  padding: 30px;
-  position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.close-modal {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #777;
-  cursor: pointer;
-  line-height: 1;
-}
-
-#modalTitle {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #5a4636;
-  text-align: center;
-}
-
-.map-container {
-  height: 300px;
-  background: #f9f5f0;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #777;
-}
-
-.map-placeholder {
-  text-align: center;
-  padding: 20px;
-}
-
-.modal-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.nav-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 18px;
-  border: none;
-  border-radius: 10px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-.nav-btn:hover {
-  opacity: 0.9;
-}
-
-.nav-btn:first-child {
-  background: #ffcc00;
-  color: #000;
-}
-
-.nav-btn:last-child {
-  background: #4285f4;
+.guest-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #d4a574;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.guest-info {
+  flex-grow: 1;
+}
+
+.guest-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.guest-status {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.guest-status.attending {
+  color: #4caf50;
+}
+
+.guest-status.not-attending {
+  color: #f44336;
+}
+
+.guest-wishes {
+  font-size: 0.9rem;
+  color: #8b6b4c;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.guest-date {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-left: 15px;
+  white-space: nowrap;
+}
+
+.loading {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+  .guest-item {
+    flex-wrap: wrap;
+  }
+
+  .guest-date {
+    margin-left: 65px;
+    width: 100%;
+    margin-top: 5px;
+  }
 }
 
 /* Кнопка "Наверх" */
@@ -1289,16 +1047,8 @@ input:checked + .slider:before {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .gifts-content {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .contacts-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .modal-actions {
-    flex-direction: row;
   }
 
   .to-top-btn {
@@ -1312,29 +1062,11 @@ input:checked + .slider:before {
 /* Адаптация для десктопов */
 @media (min-width: 1024px) {
   .details-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .gifts-content {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .contacts-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .story-content {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .story-text {
-    flex: 1;
-  }
-
-  .story-counter {
-    flex-direction: column;
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1350,77 +1082,4 @@ input:checked + .slider:before {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
-}
-/* Стили для новой формы */
-.form-hint {
-  font-size: 0.85rem;
-  color: #777;
-  margin-top: 5px;
-  font-style: italic;
-}
-
-.form-message {
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 20px;
-  text-align: center;
-  font-weight: 500;
-}
-
-.form-message.success {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-.form-message.error {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
-}
-
-/* Скрываем элементы, которые больше не нужны */
-.hidden {
-  display: none !important;
-}
-
-/* Улучшаем отступы для формы */
-.rsvp-form .form-group {
-  margin-bottom: 25px;
-}
-
-.rsvp-form textarea {
-  min-height: 100px;
-  resize: vertical;
-  font-family: "Montserrat", sans-serif;
-  line-height: 1.5;
-}
-
-/* Стили для радио и чекбоксов */
-.radio-group,
-.checkbox-group {
-  background: #f9f5f0;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-.radio-option,
-.checkbox-option {
-  display: flex;
-  align-items: center;
-  padding: 12px 15px;
-  margin: 8px 0;
-  background: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
-}
-
-.radio-option:hover,
-.checkbox-option:hover {
-  border-color: #d4a574;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
 }
