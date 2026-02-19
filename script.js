@@ -244,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
                       : ""
                   }
                 </div>
-                <div class="guest-date">${date}</div>
               </div>
             `;
           });
